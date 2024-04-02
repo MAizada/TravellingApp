@@ -43,7 +43,7 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Email"
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 12)
         return label
     }()
     
@@ -59,7 +59,7 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Username"
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 12)
         return label
     }()
     
@@ -75,7 +75,7 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Password"
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 12)
         return label
     }()
     
@@ -93,7 +93,7 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Forgot Password?", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 10)
         return button
     }()
     
@@ -102,7 +102,7 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Remember me", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 10)
         return button
     }()
     
@@ -128,7 +128,7 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
         button.setTitle("Sign In", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = Colors.customBlue
-        button.layer.cornerRadius = 25
+        button.layer.cornerRadius = 20
         return button
     }()
     
@@ -136,8 +136,9 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Don't have an Account?"
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 10)
         label.textAlignment = .center
+        label.textColor = .gray
         return label
     }()
     
@@ -148,7 +149,7 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
         button.setTitleColor(Colors.customBlue, for: .normal)
         button.layer.borderColor =  Colors.customBlue.cgColor
         button.layer.borderWidth = 1
-        button.layer.cornerRadius = 25
+        button.layer.cornerRadius = 20
         return button
     }()
     
@@ -225,16 +226,16 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
             signInButton.topAnchor.constraint(equalTo: rememberMeButton.bottomAnchor, constant: 20),
             signInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             signInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            signInButton.heightAnchor.constraint(equalToConstant: 50),
+            signInButton.heightAnchor.constraint(equalToConstant: 44),
             
-            dontHaveAccountLabel.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: 10),
+            dontHaveAccountLabel.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: 25),
             dontHaveAccountLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             dontHaveAccountLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
-            createAccountButton.topAnchor.constraint(equalTo: dontHaveAccountLabel.bottomAnchor, constant: 10),
+            createAccountButton.topAnchor.constraint(equalTo: dontHaveAccountLabel.bottomAnchor, constant: 25),
             createAccountButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             createAccountButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            createAccountButton.heightAnchor.constraint(equalToConstant: 50),
+            createAccountButton.heightAnchor.constraint(equalToConstant: 44),
             
         ])
         
