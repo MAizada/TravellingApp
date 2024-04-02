@@ -129,8 +129,14 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = Colors.customBlue
         button.layer.cornerRadius = 20
+        button.addTarget(self, action: #selector(didTapSignInButton), for: .touchUpInside)
         return button
     }()
+    
+    @objc private func didTapSignInButton() {
+        let welcomeBackView = WelcomeBackView()
+        navigationController?.pushViewController(welcomeBackView, animated: true)
+    }
     
     private let dontHaveAccountLabel: UILabel = {
         let label = UILabel()

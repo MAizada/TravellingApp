@@ -15,6 +15,7 @@
 		2E2DA2DB2BB6DB1D00EBDD9F /* RegistrationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2DA2DA2BB6DB1D00EBDD9F /* RegistrationPresenter.swift */; };
 		2E2DA2DD2BB6DB4700EBDD9F /* RegistrationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2DA2DC2BB6DB4700EBDD9F /* RegistrationEntity.swift */; };
 		2E2DA2DF2BB6DB8600EBDD9F /* RegistrationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2DA2DE2BB6DB8600EBDD9F /* RegistrationRouter.swift */; };
+		2E805D792BBC7EC600D66081 /* WelcomeBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E805D782BBC7EC600D66081 /* WelcomeBackView.swift */; };
 		2ED552292BBB3539003FD379 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED552282BBB3539003FD379 /* Colors.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		2E2DA2DA2BB6DB1D00EBDD9F /* RegistrationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationPresenter.swift; sourceTree = "<group>"; };
 		2E2DA2DC2BB6DB4700EBDD9F /* RegistrationEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationEntity.swift; sourceTree = "<group>"; };
 		2E2DA2DE2BB6DB8600EBDD9F /* RegistrationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationRouter.swift; sourceTree = "<group>"; };
+		2E805D782BBC7EC600D66081 /* WelcomeBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackView.swift; sourceTree = "<group>"; };
 		2ED552282BBB3539003FD379 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,6 +68,7 @@
 				2E1489992BB1C95400B81401 /* SceneDelegate.swift */,
 				2ED552282BBB3539003FD379 /* Colors.swift */,
 				2E2DA2D72BB6D9CD00EBDD9F /* Registration */,
+				2E805D772BBC7E9B00D66081 /* WelcomeBackScreen */,
 				2E1489A02BB1C95500B81401 /* Assets.xcassets */,
 				2E1489A52BB1C95500B81401 /* Info.plist */,
 			);
@@ -82,6 +85,14 @@
 				2E2DA2DE2BB6DB8600EBDD9F /* RegistrationRouter.swift */,
 			);
 			path = Registration;
+			sourceTree = "<group>";
+		};
+		2E805D772BBC7E9B00D66081 /* WelcomeBackScreen */ = {
+			isa = PBXGroup;
+			children = (
+				2E805D782BBC7EC600D66081 /* WelcomeBackView.swift */,
+			);
+			path = WelcomeBackScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,6 +170,7 @@
 				2E2DA2D92BB6DAEC00EBDD9F /* RegistrationInteractor.swift in Sources */,
 				2E2DA2DD2BB6DB4700EBDD9F /* RegistrationEntity.swift in Sources */,
 				2E1489982BB1C95400B81401 /* AppDelegate.swift in Sources */,
+				2E805D792BBC7EC600D66081 /* WelcomeBackView.swift in Sources */,
 				2E2DA2DF2BB6DB8600EBDD9F /* RegistrationRouter.swift in Sources */,
 				2E14899A2BB1C95400B81401 /* SceneDelegate.swift in Sources */,
 			);
