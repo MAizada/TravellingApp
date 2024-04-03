@@ -16,8 +16,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window = UIWindow(windowScene: windowScene)
 
+        let tabBarController = TabBarController()
         let registrationModule = RegistrationRouter.createModule()
-        window?.rootViewController = UINavigationController(rootViewController: registrationModule)
+
+        let navigationController = UINavigationController(rootViewController: registrationModule)
+        navigationController.navigationBar.isHidden = true
+
+        window?.rootViewController = navigationController
+
         window?.makeKeyAndVisible()
     }
 }

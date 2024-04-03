@@ -81,8 +81,14 @@ final class WelcomeBackView: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = Colors.customBlue
         button.layer.cornerRadius = 20
+        button.addTarget(self, action: #selector(didTapSignInButton), for: .touchUpInside)
         return button
     }()
+    
+    @objc private func didTapSignInButton() {
+        let tabBarController = TabBarController()
+        navigationController?.pushViewController(tabBarController, animated: true)
+    }
     
     private let googleButton: UIButton = {
         let button = UIButton(type: .custom)
