@@ -255,6 +255,20 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+           
+           switch collectionView {
+           case tripsCollectionView:
+               let trip = trips[indexPath.row]
+               let tripDetailVC = TripDetailView()
+               tripDetailVC.trip = trip
+               navigationController?.pushViewController(tripDetailVC, animated: true)
+               
+           default:
+               break
+           }
+       }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         switch collectionView {
