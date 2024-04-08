@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class LocationView: UIViewController {
+final class ExploreView: UIViewController {
    
     override func viewDidLoad() {
            super.viewDidLoad()
