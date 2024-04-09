@@ -44,6 +44,8 @@ final class ChatView: UIViewController {
         return tableView
     }()
     
+    private var chatData: [ChatMessage] = []
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -52,6 +54,8 @@ final class ChatView: UIViewController {
         view.backgroundColor = Colors.lightGray
         
         setupUI()
+        setupTableView()
+        loadData()
     }
     
     // MARK: - UI Setup
@@ -79,5 +83,40 @@ final class ChatView: UIViewController {
             chatTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             chatTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    private func setupTableView() {
+        chatTableView.delegate = self
+        chatTableView.dataSource = self
+        chatTableView.register(ChatTableViewCell.self, forCellReuseIdentifier: "chatCell")
+    }
+    
+    private func loadData() {
+        chatData = [
+            ChatMessage(avatarImage: UIImage(systemName: "person")!, name: "Alex", messageIcon: UIImage(named: "startButton")!.withTintColor(.black, renderingMode: .alwaysOriginal), message: "Hello!", time: "10:00 AM"),
+            ChatMessage(avatarImage: UIImage(systemName: "person")!, name: "Anna", messageIcon: UIImage(named: "startButton")!.withTintColor(.black, renderingMode: .alwaysOriginal), message: "Hi!", time: "10:05 AM"),
+        ]
+    }
+}
+
+// MARK: - UITableViewDataSource
+
+extension ChatView: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return chatData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "chatCell", for: indexPath) as! ChatTableViewCell
+        cell.configure(with: chatData[indexPath.row])
+        return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension ChatView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
     }
 }
