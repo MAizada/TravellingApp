@@ -44,7 +44,7 @@ final class TripDetailView: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(systemName: "star.fill")
-        imageView.tintColor = UIColor(red: 255/255, green: 223/255, blue: 0/255, alpha: 1) 
+        imageView.tintColor = Colors.customYellow
         return imageView
     }()
     
