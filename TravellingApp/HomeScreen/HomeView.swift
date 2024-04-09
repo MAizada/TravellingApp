@@ -237,7 +237,6 @@ final class HomeView: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }
-    
 }
 
 extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
