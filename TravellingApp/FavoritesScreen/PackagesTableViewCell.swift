@@ -1,0 +1,90 @@
+//
+//  PackagesTableViewCell.swift
+//  TravellingApp
+//
+//  Created by Aizada on 09.04.2024.
+//
+
+import UIKit
+
+struct Package {
+    let image: UIImage?
+    let name: String
+    let price: Double
+}
+
+final class PackagesTableViewCell: UITableViewCell {
+    
+    private let packageImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
+    private let packageNameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        return label
+    }()
+    
+    private let packagePriceLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textColor = Colors.customBlue
+        return label
+    }()
+    
+    private let bookPackageButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Book Now", for: .normal)
+        return button
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupUI() {
+        addSubview(packageImage)
+        addSubview(packageNameLabel)
+        addSubview(packagePriceLabel)
+        addSubview(bookPackageButton)
+        
+        NSLayoutConstraint.activate([
+            packageImage.topAnchor.constraint(equalTo: topAnchor),
+            packageImage.leadingAnchor.constraint(equalTo: leadingAnchor),
+            packageImage.trailingAnchor.constraint(equalTo: trailingAnchor),
+            packageImage.heightAnchor.constraint(equalToConstant: 110),
+            
+            packageNameLabel.topAnchor.constraint(equalTo: packageImage.bottomAnchor, constant: 10),
+            packageNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            
+            packagePriceLabel.topAnchor.constraint(equalTo: packageNameLabel.bottomAnchor, constant: 5),
+            packagePriceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            
+            bookPackageButton.topAnchor.constraint(equalTo: packageImage.topAnchor, constant: 10),
+            bookPackageButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            bookPackageButton.widthAnchor.constraint(equalToConstant: 80),
+            bookPackageButton.heightAnchor.constraint(equalToConstant: 30)
+        ])
+    }
+    
+    func configure(with package: Package) {
+        if let packageImage = package.image {
+            self.packageImage.image = packageImage
+        }
+        packageNameLabel.text = package.name
+        packagePriceLabel.text = "$\(package.price)"
+    }
+}
