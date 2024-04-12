@@ -11,6 +11,18 @@ final class TripDetailView: UIViewController {
     
     var trip: Trip?
     
+    private lazy var backButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Back", for: .normal)
+        button.addTarget(self, action: #selector(backAction), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func backAction() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -91,7 +103,7 @@ final class TripDetailView: UIViewController {
         """
         return textView
     }()
-
+    
     private let bookingButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -109,21 +121,18 @@ final class TripDetailView: UIViewController {
         button.tintColor = Colors.customBlue
         return button
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupUI()
         
         let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backAction))
-           self.navigationItem.leftBarButtonItem = backButton
-    }
-    
-    @objc func backAction() {
-        self.navigationController?.popViewController(animated: true)
+        self.navigationItem.leftBarButtonItem = backButton
     }
     
     private func setupUI() {
+        view.addSubview(backButton)
         view.addSubview(titleLabel)
         view.addSubview(tripImageView)
         view.addSubview(secondTitleLabel)
@@ -136,10 +145,14 @@ final class TripDetailView: UIViewController {
         view.addSubview(favoritesButton)
         
         NSLayoutConstraint.activate([
+            
+            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-
+            
             tripImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
             tripImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             tripImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),

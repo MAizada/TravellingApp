@@ -52,8 +52,7 @@ final class FavoritesView: UIViewController {
     ]
     
     let packages: [Package] = [
-        Package(image: UIImage(named: "PackageImage1"), name: "Package 1", price: 50),
-        Package(image: UIImage(named: "PackageImage2"), name: "Package 2", price: 60),
+        Package(image: UIImage(named: "KingAndDuke"), name: "King + Duke", price: 50),
     ]
     
     override func viewDidLoad() {
@@ -82,7 +81,7 @@ final class FavoritesView: UIViewController {
             eventsTableView.topAnchor.constraint(equalTo: eventsLabel.bottomAnchor, constant: 10),
             eventsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             eventsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            eventsTableView.heightAnchor.constraint(equalToConstant: 400),
+            eventsTableView.heightAnchor.constraint(equalToConstant: 300),
             
             packagesLabel.topAnchor.constraint(equalTo: eventsTableView.bottomAnchor, constant: 20),
             packagesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),

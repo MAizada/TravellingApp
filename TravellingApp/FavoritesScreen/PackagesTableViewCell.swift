@@ -20,6 +20,7 @@ final class PackagesTableViewCell: UITableViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 20
         return imageView
     }()
     
@@ -42,8 +43,17 @@ final class PackagesTableViewCell: UITableViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Book Now", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 9)
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 10
+        button.backgroundColor = Colors.customBlue
+        button.addTarget(self, action: #selector(bookPackageButtonTapped), for: .touchUpInside)
         return button
     }()
+    
+    @objc private func bookPackageButtonTapped() {
+      print("tapped")
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -62,21 +72,23 @@ final class PackagesTableViewCell: UITableViewCell {
         addSubview(bookPackageButton)
         
         NSLayoutConstraint.activate([
-            packageImage.topAnchor.constraint(equalTo: topAnchor),
-            packageImage.leadingAnchor.constraint(equalTo: leadingAnchor),
-            packageImage.trailingAnchor.constraint(equalTo: trailingAnchor),
-            packageImage.heightAnchor.constraint(equalToConstant: 110),
+            packageImage.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            packageImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            packageImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            packageImage.widthAnchor.constraint(equalToConstant: 140),
             
-            packageNameLabel.topAnchor.constraint(equalTo: packageImage.bottomAnchor, constant: 10),
-            packageNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            packageNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            packageNameLabel.leadingAnchor.constraint(equalTo: packageImage.trailingAnchor, constant: 10),
+            packageNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             
-            packagePriceLabel.topAnchor.constraint(equalTo: packageNameLabel.bottomAnchor, constant: 5),
-            packagePriceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            packagePriceLabel.topAnchor.constraint(equalTo: packageNameLabel.bottomAnchor, constant: 10),
+            packagePriceLabel.leadingAnchor.constraint(equalTo: packageImage.trailingAnchor, constant: 10),
+            packagePriceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             
-            bookPackageButton.topAnchor.constraint(equalTo: packageImage.topAnchor, constant: 10),
-            bookPackageButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            bookPackageButton.topAnchor.constraint(equalTo: packagePriceLabel.bottomAnchor, constant: 10),
+            bookPackageButton.leadingAnchor.constraint(equalTo: packageImage.trailingAnchor, constant: 10),
             bookPackageButton.widthAnchor.constraint(equalToConstant: 80),
-            bookPackageButton.heightAnchor.constraint(equalToConstant: 30)
+            bookPackageButton.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
     
@@ -85,6 +97,6 @@ final class PackagesTableViewCell: UITableViewCell {
             self.packageImage.image = packageImage
         }
         packageNameLabel.text = package.name
-        packagePriceLabel.text = "$\(package.price)"
+        packagePriceLabel.text = "$\(package.price)/visit"
     }
 }

@@ -108,14 +108,14 @@ final class EventsTableViewCell: UITableViewCell {
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             titleLabel.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 10),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            
-            starIcon.centerYAnchor.constraint(equalTo: rating.centerYAnchor),
-            starIcon.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 5),
+        
+            starIcon.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            starIcon.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
             starIcon.widthAnchor.constraint(equalToConstant: 15),
             starIcon.heightAnchor.constraint(equalToConstant: 15),
             
-            rating.topAnchor.constraint(equalTo: titleLabel.topAnchor),
-            rating.leadingAnchor.constraint(equalTo: starIcon.trailingAnchor, constant: 5),
+            rating.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            rating.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             
             locationIcon.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
             locationIcon.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
