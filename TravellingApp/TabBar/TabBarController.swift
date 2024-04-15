@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TabBarController: UITabBarController {
+final class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +29,6 @@ class TabBarController: UITabBarController {
         chatVC.tabBarItem.selectedImage = UIImage(systemName: "ellipsis.message.fill")?.withTintColor(Colors.customBlue, renderingMode: .alwaysOriginal)
         favoritesVC.tabBarItem.selectedImage = UIImage(systemName: "suit.heart.fill")?.withTintColor(Colors.customBlue, renderingMode: .alwaysOriginal)
         profileVC.tabBarItem.selectedImage = UIImage(systemName: "person.fill")?.withTintColor(Colors.customBlue, renderingMode: .alwaysOriginal)
-        
         
         viewControllers = [homeVC, exploreVC, chatVC, favoritesVC, profileVC]
     }

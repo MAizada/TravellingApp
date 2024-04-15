@@ -1,118 +1,133 @@
-//
-//  LocationView.swift
-//  TravellingApp
-//
-//  Created by Aizada on 04.04.2024.
-//
-
 import UIKit
 
 final class ExploreView: UIViewController {
-
+    
     // MARK: - UI Elements
     
-    private let exploreLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Explore"
-        label.font = UIFont.boldSystemFont(ofSize: 24)
-        return label
+    private let customPageControl = CustomPageControl()
+    private let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.isPagingEnabled = true
+        return collectionView
     }()
-    
-    private let notificationButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "bell.fill"), for: .normal)
-        button.tintColor = .black
-        return button
-    }()
-    
-    private let exploreImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "Canada")
-        return imageView
-    }()
-    
-    private let locationLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Toronto, Canada"
-        label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.textColor = .white
-        return label
-    }()
-    
-    private let distanceLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "12.5 km"
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.textColor = .white
-        return label
-    }()
-    
-    private let startButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Start", for: .normal)
-        button.setImage(UIImage(named: "startButton"), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        button.tintColor = .white
-        button.backgroundColor = Colors.customBlue
-        button.layer.cornerRadius = 20
-        button.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    @objc private func startButtonTapped() {
-        let newVC = DetailExploreView()
-        self.navigationController?.pushViewController(newVC, animated: true)
-    }
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView.collectionViewLayout.invalidateLayout()
     }
     
     // MARK: - UI Setup
     
     private func setupUI() {
         view.backgroundColor = .white
-        
-        view.addSubview(exploreLabel)
-        view.addSubview(notificationButton)
-        view.addSubview(exploreImageView)
-        view.addSubview(locationLabel)
-        view.addSubview(distanceLabel)
-        view.addSubview(startButton)
-        
+        setupCollectionView()
+        setupSubviews()
+        setupConstraints()
+        setupCustomPageControl()
+    }
+    
+    private func setupCollectionView() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(DetailCollectionViewCell.self, forCellWithReuseIdentifier: "DetailCollectionViewCell")
+        collectionView.register(FirstExploreCollectionViewCell.self, forCellWithReuseIdentifier: "FirstExploreCollectionViewCell")
+        view.addSubview(collectionView)
+    }
+
+    private func cellSize(for collectionView: UICollectionView) -> CGSize {
+        let width = collectionView.bounds.width
+        let height = collectionView.bounds.height
+        return CGSize(width: width, height: height)
+    }
+    
+    private func setupSubviews() {
+        [customPageControl].forEach { view.addSubview($0) }
+    }
+    
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
-            exploreLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            exploreLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            
-            notificationButton.centerYAnchor.constraint(equalTo: exploreLabel.centerYAnchor),
-            notificationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            
-            exploreImageView.topAnchor.constraint(equalTo: exploreLabel.bottomAnchor, constant: 20),
-            exploreImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            exploreImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            exploreImageView.heightAnchor.constraint(equalToConstant: 350),
-            
-            locationLabel.topAnchor.constraint(equalTo: exploreLabel.bottomAnchor, constant: 40),
-            locationLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            
-            distanceLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 10),
-            distanceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            
-            startButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            startButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            startButton.widthAnchor.constraint(equalToConstant: 80),
-            startButton.heightAnchor.constraint(equalToConstant: 40)
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
+    }
+    
+    // MARK: - Actions
+    
+    @objc private func startButtonTapped() {
+        print("Start button tapped")
+    }
+    
+    // MARK: - CustomPageControl Setup
+    
+    private func setupCustomPageControl() {
+        customPageControl.numberOfPages = 2
+        customPageControl.currentPage = 0
+        customPageControl.pageChangedHandler = { [weak self] currentPage in
+            self?.handlePageChange(currentPage)
+        }
+    }
+    
+    private func handlePageChange(_ currentPage: Int) {
+      
+    }
+}
+
+extension ExploreView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.item == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FirstExploreCollectionViewCell", for: indexPath) as! FirstExploreCollectionViewCell
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCollectionViewCell", for: indexPath) as! DetailCollectionViewCell
+            
+            let data = DetailData(
+                backgroundImage: UIImage(named: "Canada"),
+                exploreImage: UIImage(named: "Image"),
+                name: "King + Duke",
+                rating: "4.5",
+                description: """
+                    One of EATER National and Atlanta Magazine’s most
+                    anticipated new openings of 2013. This new restaurant by
+                    Ford Fry and Rocket Farm, designed by Meyer Davis and NO
+                    Architecture, is located at the corner of West Paces Ferry.
+                """,
+                avatarImage: UIImage(systemName: "person"),
+                reviewerName: "Reviewer Name",
+                additionalInfo: "2 weeks ago"
+            )
+            
+            cell.configure(with: data)
+            
+            return cell
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return cellSize(for: collectionView)
+    }
+}
+
+extension ExploreView: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let currentPage = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+        customPageControl.currentPage = currentPage
     }
 }
