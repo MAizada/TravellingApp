@@ -26,6 +26,8 @@
 		2E78486D2BBDDF0F00498179 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E78486C2BBDDF0F00498179 /* ProfileView.swift */; };
 		2E804C6D2BCD4C490028026D /* DetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E804C6C2BCD4C490028026D /* DetailCollectionViewCell.swift */; };
 		2E804C6F2BCD5BC90028026D /* FirstExploreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E804C6E2BCD5BC90028026D /* FirstExploreCollectionViewCell.swift */; };
+		2E804C722BCD8C690028026D /* DirectionsAndTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E804C712BCD8C690028026D /* DirectionsAndTransport.swift */; };
+		2E804C742BCD8F570028026D /* DirectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E804C732BCD8F570028026D /* DirectionTableViewCell.swift */; };
 		2E805D792BBC7EC600D66081 /* WelcomeBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E805D782BBC7EC600D66081 /* WelcomeBackView.swift */; };
 		2EAB65E32BC453B5007A9CBB /* GroupTripModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAB65E22BC453B5007A9CBB /* GroupTripModel.swift */; };
 		2EAB65E52BC45E24007A9CBB /* TripDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAB65E42BC45E24007A9CBB /* TripDetailView.swift */; };
@@ -59,6 +61,8 @@
 		2E78486C2BBDDF0F00498179 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		2E804C6C2BCD4C490028026D /* DetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		2E804C6E2BCD5BC90028026D /* FirstExploreCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstExploreCollectionViewCell.swift; sourceTree = "<group>"; };
+		2E804C712BCD8C690028026D /* DirectionsAndTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsAndTransport.swift; sourceTree = "<group>"; };
+		2E804C732BCD8F570028026D /* DirectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionTableViewCell.swift; sourceTree = "<group>"; };
 		2E805D782BBC7EC600D66081 /* WelcomeBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackView.swift; sourceTree = "<group>"; };
 		2EAB65E22BC453B5007A9CBB /* GroupTripModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTripModel.swift; sourceTree = "<group>"; };
 		2EAB65E42BC45E24007A9CBB /* TripDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailView.swift; sourceTree = "<group>"; };
@@ -132,10 +136,11 @@
 		2E3562CF2BC540E00072FDD5 /* ExploreScreen */ = {
 			isa = PBXGroup;
 			children = (
+				2E804C702BCD8B8E0028026D /* Cells */,
 				2E7848662BBDDEC300498179 /* ExploreView.swift */,
+				2E804C712BCD8C690028026D /* DirectionsAndTransport.swift */,
+				2E804C732BCD8F570028026D /* DirectionTableViewCell.swift */,
 				2EAE811D2BC9744600743C0A /* CustomPageControl.swift */,
-				2E804C6E2BCD5BC90028026D /* FirstExploreCollectionViewCell.swift */,
-				2E804C6C2BCD4C490028026D /* DetailCollectionViewCell.swift */,
 			);
 			path = ExploreScreen;
 			sourceTree = "<group>";
@@ -165,6 +170,15 @@
 				2E7848622BBDDD9C00498179 /* TabBarController.swift */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		2E804C702BCD8B8E0028026D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2E804C6C2BCD4C490028026D /* DetailCollectionViewCell.swift */,
+				2E804C6E2BCD5BC90028026D /* FirstExploreCollectionViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		2E805D772BBC7E9B00D66081 /* WelcomeBackScreen */ = {
@@ -270,6 +284,7 @@
 				2E78486D2BBDDF0F00498179 /* ProfileView.swift in Sources */,
 				2EAB65E32BC453B5007A9CBB /* GroupTripModel.swift in Sources */,
 				2EB8B2F22BC3347E0082B303 /* TopTripModel.swift in Sources */,
+				2E804C742BCD8F570028026D /* DirectionTableViewCell.swift in Sources */,
 				2E7848652BBDDEA000498179 /* HomeView.swift in Sources */,
 				2E3562D92BC55CD20072FDD5 /* PackagesTableViewCell.swift in Sources */,
 				2E2DA2DD2BB6DB4700EBDD9F /* RegistrationEntity.swift in Sources */,
@@ -285,6 +300,7 @@
 				2EAE811E2BC9744600743C0A /* CustomPageControl.swift in Sources */,
 				2E804C6D2BCD4C490028026D /* DetailCollectionViewCell.swift in Sources */,
 				2E804C6F2BCD5BC90028026D /* FirstExploreCollectionViewCell.swift in Sources */,
+				2E804C722BCD8C690028026D /* DirectionsAndTransport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

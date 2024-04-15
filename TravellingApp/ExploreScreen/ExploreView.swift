@@ -94,6 +94,7 @@ extension ExploreView: UICollectionViewDataSource, UICollectionViewDelegateFlowL
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.item == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FirstExploreCollectionViewCell", for: indexPath) as! FirstExploreCollectionViewCell
+            cell.navigationController = self.navigationController
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCollectionViewCell", for: indexPath) as! DetailCollectionViewCell

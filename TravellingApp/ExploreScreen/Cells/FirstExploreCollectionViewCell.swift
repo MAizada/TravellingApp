@@ -9,6 +9,8 @@ import UIKit
 
 final class FirstExploreCollectionViewCell: UICollectionViewCell {
     
+    var navigationController: UINavigationController?
+
     // MARK: - UI Elements
     
     private let exploreLabel: UILabel = {
@@ -119,7 +121,8 @@ final class FirstExploreCollectionViewCell: UICollectionViewCell {
     // MARK: - Actions
     
     @objc private func startButtonTapped() {
-        print("Start button tapped")
+        let directionsAndTransportView = DirectionsAndTransportView()
+        navigationController?.pushViewController(directionsAndTransportView, animated: true)
     }
 }
 
