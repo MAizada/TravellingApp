@@ -7,9 +7,19 @@
 
 import UIKit
 
+struct TripDetailCatrgories {
+    let title: String
+    let secondTitle: String
+    let image: UIImage?
+    let rating: Double
+    let location: String
+    let information: String
+}
+
 final class TripDetailView: UIViewController {
     
     var trip: Trip?
+    var tripDetailCategories: [TripDetailCatrgories] = []
     
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
@@ -28,7 +38,6 @@ final class TripDetailView: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 24)
-        label.text = "Lake View"
         return label
     }()
     
@@ -39,7 +48,6 @@ final class TripDetailView: UIViewController {
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 20
         imageView.layer.masksToBounds = true
-        imageView.image = UIImage(named: "RedFish")
         return imageView
     }()
     
@@ -47,7 +55,6 @@ final class TripDetailView: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.text = "RedFish Lake"
         return label
     }()
     
@@ -64,7 +71,6 @@ final class TripDetailView: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16)
-        label.text = "4.5"
         return label
     }()
     
@@ -80,7 +86,6 @@ final class TripDetailView: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16)
-        label.text = "Idaho"
         return label
     }()
     
@@ -89,18 +94,6 @@ final class TripDetailView: UIViewController {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = UIFont.systemFont(ofSize: 14)
         textView.isEditable = false
-        textView.text = """
-        What is Redfish Lake known for?
-        Redfish Lake is the final stop on the longest
-        Pacific salmon run in North America, which
-        requires long-distance swimmers, such as
-        Sockeye and Chinook Salmon, to travel over
-        900 miles upstream to return to their spawning
-        grounds.
-        Redfish Lake is an alpine lake in Custer County,
-        Idaho, just south of Stanley. It is the largest lake
-        within the Sawtooth National Recreation Area.
-        """
         return textView
     }()
     
@@ -126,6 +119,7 @@ final class TripDetailView: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupUI()
+        setupData()
         
         let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backAction))
         self.navigationItem.leftBarButtonItem = backButton
@@ -192,5 +186,19 @@ final class TripDetailView: UIViewController {
             favoritesButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             favoritesButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    
+    private func setupData() {
+        guard let trip = trip else { return }
+        
+        titleLabel.text = trip.title
+        secondTitleLabel.text = trip.location
+        tripImageView.image = trip.image
+        ratingLabel.text = String(trip.rating)
+        
+        if let tripDetail = tripDetailCategories.first(where: { $0.secondTitle == trip.title }) {
+            locationLabel.text = tripDetail.location
+            informationTextView.text = tripDetail.information
+        }
     }
 }

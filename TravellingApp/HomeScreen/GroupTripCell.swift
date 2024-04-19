@@ -7,6 +7,13 @@
 
 import UIKit
 
+struct GroupTrip {
+    let image: UIImage?
+    let title: String
+    let secontTitle: String
+    let location: String
+}
+
 final class GroupTripCell: UICollectionViewCell {
     
     private let imageView: UIImageView = {
