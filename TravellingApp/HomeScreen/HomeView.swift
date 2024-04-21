@@ -32,8 +32,14 @@ final class HomeView: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "bell.fill"), for: .normal)
         button.tintColor = .black
+        button.addTarget(self, action: #selector(notificationButtonPressed), for: .touchUpInside)
         return button
     }()
+    
+    @objc private func notificationButtonPressed() {
+        let notificationView = NotificationView()
+        navigationController?.pushViewController(notificationView, animated: true)
+    }
     
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -51,14 +57,12 @@ final class HomeView: UIViewController {
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(filterButtonPressed), for: .touchUpInside)
-    
         return button
     }()
     
     @objc private func filterButtonPressed() {
-        let filterViewController = FilterView()
-        present(filterViewController, animated: true, completion: nil)
-       
+        let filterView = FilterView()
+        present(filterView, animated: true, completion: nil)
     }
     
     private let categoriesLabel = createLabel(with: "Categories")
