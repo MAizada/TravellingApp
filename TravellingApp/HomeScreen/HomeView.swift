@@ -43,15 +43,23 @@ final class HomeView: UIViewController {
         return searchBar
     }()
     
-    private let listButton: UIButton = {
+    private let filterButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "list"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = Colors.customBlue
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
+        button.addTarget(self, action: #selector(filterButtonPressed), for: .touchUpInside)
+    
         return button
     }()
+    
+    @objc private func filterButtonPressed() {
+        let filterViewController = FilterView()
+        present(filterViewController, animated: true, completion: nil)
+       
+    }
     
     private let categoriesLabel = createLabel(with: "Categories")
     private let seeAllCategoriesButton = createButton()
@@ -156,7 +164,7 @@ final class HomeView: UIViewController {
             locationButton,
             notificationButton,
             searchBar,
-            listButton,
+            filterButton,
             categoriesLabel,
             seeAllCategoriesButton,
             categoriesCollectionView,
@@ -195,10 +203,10 @@ final class HomeView: UIViewController {
             searchBar.widthAnchor.constraint(equalToConstant: 325),
             searchBar.heightAnchor.constraint(equalToConstant: 40),
             
-            listButton.topAnchor.constraint(equalTo: searchBar.topAnchor),
-            listButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            listButton.widthAnchor.constraint(equalToConstant: 60),
-            listButton.heightAnchor.constraint(equalToConstant: 40),
+            filterButton.topAnchor.constraint(equalTo: searchBar.topAnchor),
+            filterButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            filterButton.widthAnchor.constraint(equalToConstant: 60),
+            filterButton.heightAnchor.constraint(equalToConstant: 40),
             
             categoriesLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 20),
             categoriesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
