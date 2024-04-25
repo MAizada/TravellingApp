@@ -11,6 +11,8 @@ protocol RegistrationRouterProtocol: AnyObject {
     var view: UIViewController? { get set }
 
     static func createModule() -> UIViewController
+    func navigateToMainScreen()
+    func showError(_ error: Error)
 
 }
 
@@ -34,4 +36,14 @@ final class RegistrationRouter: RegistrationRouterProtocol {
         return view
     }
 
+    func navigateToMainScreen() {
+        let homeVC = HomeView()  
+        view?.navigationController?.pushViewController(homeVC, animated: true)
+    }
+
+    func showError(_ error: Error) {
+        let alertController = UIAlertController(title: "Ошибка", message: error.localizedDescription, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
+        view?.present(alertController, animated: true, completion: nil)
+    }
 }

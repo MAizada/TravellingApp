@@ -28,10 +28,10 @@ final class RegistrationPresenter: RegistrationPresenterProtocol {
     }
 
     func registrationDidSucceed() {
-     
+        router?.navigateToMainScreen()
     }
 
     func registrationDidFail(withError error: Error) {
-
-    }
+        view?.showRegistrationError(error)
+       }
 }

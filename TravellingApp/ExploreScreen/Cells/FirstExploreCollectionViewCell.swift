@@ -26,8 +26,14 @@ final class FirstExploreCollectionViewCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "bell.fill"), for: .normal)
         button.tintColor = .black
+        button.addTarget(self, action: #selector(notificationButtonPressed), for: .touchUpInside)
         return button
     }()
+    
+    @objc private func notificationButtonPressed() {
+        let notificationView = NotificationView()
+        navigationController?.pushViewController(notificationView, animated: true)
+    }
     
     private let exploreImageView: UIImageView = {
         let imageView = UIImageView()

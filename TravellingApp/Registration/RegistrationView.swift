@@ -4,6 +4,7 @@ import UIKit
 
 protocol RegistrationViewProtocol: AnyObject {
     var presenter: RegistrationPresenterProtocol? { get set }
+    func showRegistrationError(_ error: Error)
 }
 
 final class RegistrationView: UIViewController, RegistrationViewProtocol {
@@ -88,40 +89,47 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
         return textField
     }()
     
-    private let forgotPasswordButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Forgot Password?", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 10)
-        return button
-    }()
-    
     private let rememberMeButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Remember me", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 10)
+        
+        let checkboxImageView = UIImageView(image: UIImage(systemName: "square"))
+        checkboxImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let titleLabel = UILabel()
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.text = "Remember me"
+        titleLabel.font = UIFont.systemFont(ofSize: 10)
+        
+        button.addSubview(checkboxImageView)
+        button.addSubview(titleLabel)
+        
+        NSLayoutConstraint.activate([
+            checkboxImageView.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: 0),
+            checkboxImageView.centerYAnchor.constraint(equalTo: button.centerYAnchor),
+            checkboxImageView.widthAnchor.constraint(equalToConstant: 20),
+            checkboxImageView.heightAnchor.constraint(equalToConstant: 20),
+            
+            titleLabel.leadingAnchor.constraint(equalTo: checkboxImageView.trailingAnchor, constant: 10),
+            titleLabel.centerYAnchor.constraint(equalTo: button.centerYAnchor),
+        ])
+        
+        button.addTarget(self, action: #selector(didTapRememberMeButton), for: .touchUpInside)
         return button
     }()
-    
-    private let rememberMeCheckbox: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "checkbox_empty"), for: .normal)
-        button.setImage(UIImage(named: "checkbox_filled"), for: .selected)
-        return button
-    }()
-    
-    private let checkmarkImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "checkmark_empty")
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
+
+    private var isRemembered: Bool = false {
+        didSet {
+            if let checkboxImageView = rememberMeButton.subviews.first(where: { $0 is UIImageView }) as? UIImageView {
+                checkboxImageView.image = isRemembered ? UIImage(systemName: "checkmark.square.fill") : UIImage(systemName: "square")
+            }
+        }
+    }
+
+    @objc private func didTapRememberMeButton(sender: UIButton) {
+        isRemembered.toggle()
+    }
+
     private let signInButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -138,16 +146,6 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
         navigationController?.pushViewController(welcomeBackView, animated: true)
     }
     
-    private let dontHaveAccountLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Don't have an Account?"
-        label.font = UIFont.systemFont(ofSize: 10)
-        label.textAlignment = .center
-        label.textColor = .gray
-        return label
-    }()
-    
     private let createAccountButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -156,8 +154,23 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
         button.layer.borderColor =  Colors.customBlue.cgColor
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 20
+        button.addTarget(self, action: #selector(didTapCreateAccountButton), for: .touchUpInside)
         return button
     }()
+    
+    @objc private func didTapCreateAccountButton() {
+        guard let email = emailTextField.text, !email.isEmpty,
+              let password = passwordTextField.text, !password.isEmpty else {
+            return
+        }
+        presenter?.registerUser(username: email, password: password)
+    }
+    
+    func showRegistrationError(_ error: Error) {
+            let alertController = UIAlertController(title: "Ошибка", message: error.localizedDescription, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
+            present(alertController, animated: true, completion: nil)
+        }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -176,11 +189,8 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
         view.addSubview(usernameTextField)
         view.addSubview(passwordLabel)
         view.addSubview(passwordTextField)
-        view.addSubview(forgotPasswordButton)
         view.addSubview(rememberMeButton)
-        view.addSubview(rememberMeCheckbox)
         view.addSubview(signInButton)
-        view.addSubview(dontHaveAccountLabel)
         view.addSubview(createAccountButton)
         
         NSLayoutConstraint.activate([
@@ -218,42 +228,18 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
             passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
-            forgotPasswordButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 10),
-            forgotPasswordButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            
             rememberMeButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 10),
             rememberMeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            
-            rememberMeCheckbox.centerYAnchor.constraint(equalTo: rememberMeButton.centerYAnchor),
-            rememberMeCheckbox.leadingAnchor.constraint(equalTo: rememberMeButton.trailingAnchor, constant: 10),
-            rememberMeCheckbox.widthAnchor.constraint(equalToConstant: 20),
-            rememberMeCheckbox.heightAnchor.constraint(equalToConstant: 20),
             
             signInButton.topAnchor.constraint(equalTo: rememberMeButton.bottomAnchor, constant: 20),
             signInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             signInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             signInButton.heightAnchor.constraint(equalToConstant: 44),
             
-            dontHaveAccountLabel.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: 25),
-            dontHaveAccountLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            dontHaveAccountLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            
-            createAccountButton.topAnchor.constraint(equalTo: dontHaveAccountLabel.bottomAnchor, constant: 25),
+            createAccountButton.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: 25),
             createAccountButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             createAccountButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             createAccountButton.heightAnchor.constraint(equalToConstant: 44),
-            
-        ])
-        
-        emailTextField.addSubview(checkmarkImageView)
-        usernameTextField.addSubview(checkmarkImageView.copy())
-        passwordTextField.addSubview(checkmarkImageView.copy())
-        
-        NSLayoutConstraint.activate([
-            checkmarkImageView.centerYAnchor.constraint(equalTo: emailTextField.centerYAnchor),
-            checkmarkImageView.trailingAnchor.constraint(equalTo: emailTextField.trailingAnchor, constant: -10),
-            checkmarkImageView.widthAnchor.constraint(equalToConstant: 20),
-            checkmarkImageView.heightAnchor.constraint(equalToConstant: 20)
         ])
         
         let emailUnderline = UIView()

@@ -43,6 +43,8 @@
 		2EE084882BD93294006B7005 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE084872BD93294006B7005 /* FirebaseDatabase */; };
 		2EE0848A2BD93294006B7005 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE084892BD93294006B7005 /* FirebaseFirestore */; };
 		2EE0848C2BD93294006B7005 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE0848B2BD93294006B7005 /* FirebaseStorage */; };
+		2EE0848E2BD93AEF006B7005 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE0848D2BD93AEF006B7005 /* AuthenticationManager.swift */; };
+		2EE084902BD93C11006B7005 /* AuthenticationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE0848F2BD93C11006B7005 /* AuthenticationModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +82,8 @@
 		2ED494902BBF288400E8BB78 /* GroupTripCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTripCell.swift; sourceTree = "<group>"; };
 		2ED552282BBB3539003FD379 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		2EE084822BD9324E006B7005 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2EE0848D2BD93AEF006B7005 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		2EE0848F2BD93C11006B7005 /* AuthenticationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +125,7 @@
 				2E1489992BB1C95400B81401 /* SceneDelegate.swift */,
 				2ED552282BBB3539003FD379 /* Colors.swift */,
 				2E7848612BBDDD5E00498179 /* TabBar */,
+				2EE084912BD93C39006B7005 /* AuthenticationModule */,
 				2E2DA2D72BB6D9CD00EBDD9F /* Registration */,
 				2E805D772BBC7E9B00D66081 /* WelcomeBackScreen */,
 				2ED4948B2BBF282300E8BB78 /* HomeScreen */,
@@ -241,6 +246,15 @@
 			path = HomeScreen;
 			sourceTree = "<group>";
 		};
+		2EE084912BD93C39006B7005 /* AuthenticationModule */ = {
+			isa = PBXGroup;
+			children = (
+				2EE0848D2BD93AEF006B7005 /* AuthenticationManager.swift */,
+				2EE0848F2BD93C11006B7005 /* AuthenticationModels.swift */,
+			);
+			path = AuthenticationModule;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -345,9 +359,11 @@
 				2E805D792BBC7EC600D66081 /* WelcomeBackView.swift in Sources */,
 				2E2DA2DF2BB6DB8600EBDD9F /* RegistrationRouter.swift in Sources */,
 				2E14899A2BB1C95400B81401 /* SceneDelegate.swift in Sources */,
+				2EE084902BD93C11006B7005 /* AuthenticationModels.swift in Sources */,
 				2EAE811E2BC9744600743C0A /* CustomPageControl.swift in Sources */,
 				2E804C6D2BCD4C490028026D /* DetailCollectionViewCell.swift in Sources */,
 				2E804C6F2BCD5BC90028026D /* FirstExploreCollectionViewCell.swift in Sources */,
+				2EE0848E2BD93AEF006B7005 /* AuthenticationManager.swift in Sources */,
 				2E804C722BCD8C690028026D /* DirectionsAndTransport.swift in Sources */,
 				2E9DB64B2BD59EE10044DA91 /* NotificationView.swift in Sources */,
 			);
