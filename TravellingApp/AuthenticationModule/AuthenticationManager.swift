@@ -1,9 +1,3 @@
-//
-//  AuthenticationManager.swift
-//  TravellingApp
-//
-//  Created by Aizada on 24.04.2024.
-//
 
 import UIKit
 import Firebase
@@ -29,24 +23,27 @@ final class AuthenticationManager {
         
         auth.createUser(withEmail: data.email, password: data.password) { [weak self] result, error in
             
-            if error == nil {
-                if result != nil {
-                    let userId = result?.user.uid
-                    let email = data.email
-                }
+            if let error = error {
+                completion(ResponseCode(code: 0))
+                print("User creation failed: \(error.localizedDescription)")
             } else {
-                
+                if let _ = result?.user.uid {
+                    completion(ResponseCode(code: 1))
+                    print("User created successfully")
+                }
             }
         }
     }
     
     func authInApp(_ data: LoginField, completion: @escaping (AuthResponce) -> ()) {
         auth.signIn(withEmail: data.email, password: data.password) { result, error in
-            if error != nil {
+            if let error = error {
                 completion(.error)
+                print("Authentication failed: \(error.localizedDescription)")
             } else {
-                if let result = result {
+                if let _ = result {
                     completion(.success)
+                    print("User authenticated successfully")
                 }
             }
         }
@@ -60,18 +57,20 @@ final class AuthenticationManager {
         Firestore.firestore().collection("users")
             .whereField("email", isNotEqualTo: email)
             .getDocuments { snapshot, error in
-                if error == nil {
-                    
-                    if let documents = snapshot?.documents {
-                        for document in documents {
-                            let data = document.data()
-                            let userId = document.documentID
-                            let email = data["email"] as! String
-                            currentUsers.append(CurrentUser(id: userId, email: email))
-                        }
-                    }
-                    completion(currentUsers)
+                if let error = error {
+                    print("Error fetching users: \(error.localizedDescription)")
+                    return
                 }
+                
+                if let documents = snapshot?.documents {
+                    for document in documents {
+                        let data = document.data()
+                        let userId = document.documentID
+                        let email = data["email"] as! String
+                        currentUsers.append(CurrentUser(id: userId, email: email))
+                    }
+                }
+                completion(currentUsers)
             }
     }
     
@@ -89,8 +88,10 @@ final class AuthenticationManager {
         do {
             try Auth.auth().signOut()
             completion(.success(()))
+            print("User logged out successfully")
         } catch let error {
             completion(.failure(error))
+            print("Error logging out: \(error.localizedDescription)")
         }
     }
 }

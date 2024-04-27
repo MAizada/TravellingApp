@@ -52,6 +52,7 @@ final class WelcomeBackView: UIViewController {
         textField.layer.borderColor = Colors.customBlue.cgColor
         textField.layer.borderWidth = 1.0
         textField.layer.cornerRadius = 20
+        textField.isSecureTextEntry = true 
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()

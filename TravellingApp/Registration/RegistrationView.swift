@@ -170,6 +170,7 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
             let alertController = UIAlertController(title: "Ошибка", message: error.localizedDescription, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
             present(alertController, animated: true, completion: nil)
+        print("Registration error: \(error.localizedDescription)")
         }
     
     override func viewDidLoad() {

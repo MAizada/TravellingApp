@@ -25,8 +25,11 @@ final class RegistrationInteractor: RegistrationInteractorProtocol {
             switch responseCode.code {
             case 1:
                 self?.presenter?.registrationDidSucceed()
+                print("User registration successful")
             case 0:
-                self?.presenter?.registrationDidFail(withError: NSError(domain: "RegistrationError", code: 0, userInfo: nil))
+                let error = NSError(domain: "RegistrationError", code: 0, userInfo: nil)
+                self?.presenter?.registrationDidFail(withError: error)
+                print("User registration failed: \(error.localizedDescription)")
             default:
                 break
             }

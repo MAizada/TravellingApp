@@ -39,11 +39,13 @@ final class RegistrationRouter: RegistrationRouterProtocol {
     func navigateToMainScreen() {
         let homeVC = HomeView()  
         view?.navigationController?.pushViewController(homeVC, animated: true)
+        print("Navigating to main screen")
     }
 
     func showError(_ error: Error) {
         let alertController = UIAlertController(title: "Ошибка", message: error.localizedDescription, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
         view?.present(alertController, animated: true, completion: nil)
+        print("Showing error: \(error.localizedDescription)")
     }
 }
