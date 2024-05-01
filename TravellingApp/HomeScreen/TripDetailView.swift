@@ -193,12 +193,22 @@ final class TripDetailView: UIViewController {
         
         titleLabel.text = trip.title
         secondTitleLabel.text = trip.location
-        tripImageView.image = trip.image
+        tripImageView.image = UIImage(named: "placeholder_image") // Placeholder image while loading
         ratingLabel.text = String(trip.rating)
         
         if let tripDetail = tripDetailCategories.first(where: { $0.secondTitle == trip.title }) {
             locationLabel.text = tripDetail.location
             informationTextView.text = tripDetail.information
+            
+            if let imageURL = trip.imageURL {
+                DispatchQueue.global().async {
+                    if let data = try? Data(contentsOf: imageURL) {
+                        DispatchQueue.main.async {
+                            self.tripImageView.image = UIImage(data: data)
+                        }
+                    }
+                }
+            }
         }
     }
 }

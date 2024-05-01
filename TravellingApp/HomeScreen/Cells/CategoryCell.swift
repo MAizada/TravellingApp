@@ -60,6 +60,10 @@ final class CategoryCell: UICollectionViewCell {
             titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 5),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5)
         ])
-        
+    }
+    
+    func configure(with category: String) {
+        titleLabel.text = category
+        imageView.image = UIImage(named: category.lowercased())
     }
 }

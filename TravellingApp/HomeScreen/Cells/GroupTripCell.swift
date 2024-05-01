@@ -10,7 +10,7 @@ import UIKit
 struct GroupTrip {
     let image: UIImage?
     let title: String
-    let secontTitle: String
+    let secondTitle: String
     let location: String
 }
 
@@ -101,8 +101,9 @@ final class GroupTripCell: UICollectionViewCell {
     }
     
     func configure(with groupTrip: GroupTrip) {
-        imageView.image = groupTrip.image
-        titleLabel.text = groupTrip.title
-        locationLabel.text = groupTrip.location
-    }
+           imageView.image = groupTrip.image
+           titleLabel.text = groupTrip.title
+           secondTitleLabel.text = groupTrip.secondTitle
+           locationLabel.text = groupTrip.location
+       }
 }
