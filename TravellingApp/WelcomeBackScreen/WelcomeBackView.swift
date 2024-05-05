@@ -67,26 +67,58 @@ final class WelcomeBackView: UIViewController {
     }()
     
     private let rememberMeButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Remember me", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 10)
+        
+        let checkboxImageView = UIImageView(image: UIImage(systemName: "square"))
+        checkboxImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let titleLabel = UILabel()
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.text = "Remember me"
+        titleLabel.font = UIFont.systemFont(ofSize: 10)
+        
+        button.addSubview(checkboxImageView)
+        button.addSubview(titleLabel)
+        
+        NSLayoutConstraint.activate([
+            checkboxImageView.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: 0),
+            checkboxImageView.centerYAnchor.constraint(equalTo: button.centerYAnchor),
+            checkboxImageView.widthAnchor.constraint(equalToConstant: 20),
+            checkboxImageView.heightAnchor.constraint(equalToConstant: 20),
+            
+            titleLabel.leadingAnchor.constraint(equalTo: checkboxImageView.trailingAnchor, constant: 10),
+            titleLabel.centerYAnchor.constraint(equalTo: button.centerYAnchor),
+        ])
+        
+        button.addTarget(self, action: #selector(didTapRememberMeButton), for: .touchUpInside)
         return button
     }()
+
+    private var isRemembered: Bool = false {
+        didSet {
+            if let checkboxImageView = rememberMeButton.subviews.first(where: { $0 is UIImageView }) as? UIImageView {
+                checkboxImageView.image = isRemembered ? UIImage(systemName: "checkmark.square.fill") : UIImage(systemName: "square")
+            }
+        }
+    }
+
+    @objc private func didTapRememberMeButton(sender: UIButton) {
+        isRemembered.toggle()
+    }
     
-    private let signInButton: UIButton = {
+    private let loginButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Sign In", for: .normal)
+        button.setTitle("Log In", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = Colors.customBlue
         button.layer.cornerRadius = 20
-        button.addTarget(self, action: #selector(didTapSignInButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTaploginButton), for: .touchUpInside)
         return button
     }()
     
-    @objc private func didTapSignInButton() {
+    @objc private func didTaploginButton() {
         let tabBarController = TabBarController()
         navigationController?.pushViewController(tabBarController, animated: true)
     }
@@ -150,9 +182,15 @@ final class WelcomeBackView: UIViewController {
         
         button.setAttributedTitle(attributedString, for: .normal)
         
+        button.addTarget(self, action: #selector(didTapSignUpHereButton), for: .touchUpInside)
         return button
     }()
     
+    
+    @objc private func didTapSignUpHereButton() {
+        let registrationV = RegistrationView()
+        navigationController?.pushViewController(registrationV, animated: true)
+    }
     
     private lazy var signUpStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [dontHaveAccountLabel, signUpHereButton])
@@ -182,7 +220,7 @@ final class WelcomeBackView: UIViewController {
         self.view.addSubview(passwordTextField)
         view.addSubview(forgotPasswordButton)
         view.addSubview(rememberMeButton)
-        view.addSubview(signInButton)
+        view.addSubview(loginButton)
         view.addSubview(socialStackView)
         view.addSubview(signUpStackView)
     }
@@ -221,10 +259,10 @@ final class WelcomeBackView: UIViewController {
             rememberMeButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 10),
             rememberMeButton.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor, constant: 25),
             
-            signInButton.topAnchor.constraint(equalTo: rememberMeButton.bottomAnchor, constant: 20),
-            signInButton.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor, constant: 25),
-            signInButton.trailingAnchor.constraint(equalTo: whiteView.trailingAnchor, constant: -25),
-            signInButton.heightAnchor.constraint(equalToConstant: 45),
+            loginButton.topAnchor.constraint(equalTo: rememberMeButton.bottomAnchor, constant: 20),
+            loginButton.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor, constant: 25),
+            loginButton.trailingAnchor.constraint(equalTo: whiteView.trailingAnchor, constant: -25),
+            loginButton.heightAnchor.constraint(equalToConstant: 45),
             
             socialStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             socialStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),

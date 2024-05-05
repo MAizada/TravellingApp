@@ -47,8 +47,8 @@ final class FavoritesView: UIViewController {
     }()
     
     let trips: [Trip] = [
-        Trip(image: UIImage(named: "RedFishLake"), title: "RedFish Lake", rating: 4.5, location: "Idaho", price: 40, isFavorite: true),
-        Trip(image: UIImage(named: "MaligneLake"), title: "Maligne Lake", rating: 4.8, location: "Canada", price: 40, isFavorite: true),
+//        Trip(image: UIImage(named: "RedFishLake"), title: "RedFish Lake", rating: 4.5, location: "Idaho", price: 40, isFavorite: true),
+//        Trip(image: UIImage(named: "MaligneLake"), title: "Maligne Lake", rating: 4.8, location: "Canada", price: 40, isFavorite: true),
     ]
     
     let packages: [Package] = [

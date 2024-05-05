@@ -139,16 +139,16 @@ final class EventsTableViewCell: UITableViewCell {
     }
     
     func configure(with trip: Trip) {
-        if let tripImage = trip.image {
-            image.image = tripImage
-        }
-        titleLabel.text = trip.title
-        rating.text = "\(trip.rating)"
-        locationLabel.text = trip.location
-        priceLabel.text = "$\(trip.price) /visit"
-        
-        if let favoriteImg = trip.favoriteImage {
-            bookButton.setImage(favoriteImg, for: .normal)
-        }
+//        if let tripImage = trip.image {
+//            image.image = tripImage
+//        }
+//        titleLabel.text = trip.title
+//        rating.text = "\(trip.rating)"
+//        locationLabel.text = trip.location
+//        priceLabel.text = "$\(trip.price) /visit"
+//
+//        if let favoriteImg = trip.favoriteImage {
+//            bookButton.setImage(favoriteImg, for: .normal)
+//        }
     }
 }

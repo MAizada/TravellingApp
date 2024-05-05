@@ -130,18 +130,18 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
         isRemembered.toggle()
     }
 
-    private let signInButton: UIButton = {
+    private let loginButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Sign In", for: .normal)
+        button.setTitle("Log In", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = Colors.customBlue
         button.layer.cornerRadius = 20
-        button.addTarget(self, action: #selector(didTapSignInButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTaploginButton), for: .touchUpInside)
         return button
     }()
     
-    @objc private func didTapSignInButton() {
+    @objc private func didTaploginButton() {
         let welcomeBackView = WelcomeBackView()
         navigationController?.pushViewController(welcomeBackView, animated: true)
     }
@@ -167,8 +167,8 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
     }
     
     func showRegistrationError(_ error: Error) {
-            let alertController = UIAlertController(title: "Ошибка", message: error.localizedDescription, preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
+            let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
             present(alertController, animated: true, completion: nil)
         print("Registration error: \(error.localizedDescription)")
         }
@@ -191,7 +191,7 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
         view.addSubview(passwordLabel)
         view.addSubview(passwordTextField)
         view.addSubview(rememberMeButton)
-        view.addSubview(signInButton)
+        view.addSubview(loginButton)
         view.addSubview(createAccountButton)
         
         NSLayoutConstraint.activate([
@@ -232,12 +232,12 @@ final class RegistrationView: UIViewController, RegistrationViewProtocol {
             rememberMeButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 10),
             rememberMeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             
-            signInButton.topAnchor.constraint(equalTo: rememberMeButton.bottomAnchor, constant: 20),
-            signInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            signInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            signInButton.heightAnchor.constraint(equalToConstant: 44),
+            loginButton.topAnchor.constraint(equalTo: rememberMeButton.bottomAnchor, constant: 20),
+            loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            loginButton.heightAnchor.constraint(equalToConstant: 44),
             
-            createAccountButton.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: 25),
+            createAccountButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 25),
             createAccountButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             createAccountButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             createAccountButton.heightAnchor.constraint(equalToConstant: 44),
