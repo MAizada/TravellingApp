@@ -16,7 +16,6 @@ final class FirebaseDatabaseManager {
     static let shared = FirebaseDatabaseManager()
     let databaseRef = Database.database().reference()
     
-    // Сохранение списка поездок в Firebase
     func saveTripsToFirebase(trips: [Trip], completion: @escaping (Error?) -> Void) {
         let dispatchGroup = DispatchGroup()
         var savingError: Error?
@@ -49,7 +48,6 @@ final class FirebaseDatabaseManager {
         }
     }
     
-    // Получение списка поездок из Firebase
     func getAllTripsFromFirebase(completion: @escaping ([Trip]?, Error?) -> Void) {
         databaseRef.child("trips").observeSingleEvent(of: .value, with: { snapshot in
             guard let tripDicts = snapshot.value as? [String: Any] else {

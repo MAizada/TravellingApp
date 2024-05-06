@@ -63,9 +63,15 @@ final class WelcomeBackView: UIViewController {
         button.setTitle("Forgot Password?", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 10)
+        button.addTarget(self, action: #selector(forgotPasswordButtonTapped), for: .touchUpInside)
         return button
     }()
-    
+
+    @objc private func forgotPasswordButtonTapped(sender: UIButton) {
+        let forgotPasswordView = ForgotPasswordRouter.createModule()
+        navigationController?.pushViewController(forgotPasswordView, animated: true) 
+    }
+
     private let rememberMeButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false

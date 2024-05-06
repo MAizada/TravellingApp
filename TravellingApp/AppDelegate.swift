@@ -14,26 +14,28 @@ import FirebaseFirestore
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+   
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        var firebaseManager = FirebaseDatabaseManager.shared
         print("Firebase configured successfully")
         
-        let firebaseManager = FirebaseDatabaseManager.shared
-        let mainVC = HomeView()
-     
+        let homeView = HomeView()
+        let router = HomeRouter(viewController: homeView)
+        let presenter = HomePresenter(view: homeView, interactor: HomeInteractor(firebaseManager: firebaseManager), router: router)
+        homeView.presenter = presenter
+        
         firebaseManager.getAllTripsFromFirebase { trips, error in
             if let error = error {
                 print("Error loading trips from Firebase: \(error.localizedDescription)")
             } else if let trips = trips {
-             
-                mainVC.displayedTrips = trips
-                mainVC.tripsCollectionView.reloadData()
+                homeView.displayedTrips = trips
+                homeView.tripsCollectionView.reloadData()
             }
         }
         
-        let navController = UINavigationController(rootViewController: mainVC)
-        
+        let navController = UINavigationController(rootViewController: homeView)
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = navController
         window?.makeKeyAndVisible()

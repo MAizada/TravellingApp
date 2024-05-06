@@ -46,7 +46,4 @@ final class HomePresenter: HomePresenterProtocol {
     func dataFetchingFailed(with error: Error) {
         view?.displayError(error.localizedDescription)
     }
-    
-    
-    
 }
