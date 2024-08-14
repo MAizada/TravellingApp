@@ -2,7 +2,6 @@ import UIKit
 
 protocol HomeViewProtocol: class {
     func displayTrips(_ trips: [Trip])
-    func displayError(_ message: String)
 }
 
 final class HomeView: UIViewController, HomeViewProtocol {
@@ -12,10 +11,8 @@ final class HomeView: UIViewController, HomeViewProtocol {
     
     var selectedCategory: String?
     var selectedCategoryIndex: Int?
-    var displayedTrips: [Trip] = []
     let firebaseManager = FirebaseDatabaseManager.shared
     var tripDetailCategories: [TripDetailCatrgories] = []
-    var groupTrips: [GroupTrip] = []
 
     private let locationLabel: UILabel = {
         let label = UILabel()
@@ -100,6 +97,8 @@ final class HomeView: UIViewController, HomeViewProtocol {
     private let seeAllGroupTripsButton = createButton()
 
     let categories = ["Lakes", "Sea", "Mountain", "Forest", "City"]
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,14 +106,27 @@ final class HomeView: UIViewController, HomeViewProtocol {
         presenter?.fetchData()
     }
 
-    func displayTrips(_ trips: [Trip]) {
-           self.displayedTrips = trips
-           self.tripsCollectionView.reloadData()
-       }
+    private var displayedTrips = [
+        Trip(title: "RedFish Lake", rating: 4.5, location: "Idaho", price: 40, isFavorite: true, image: UIImage(named: "RedFishLake")),
+        Trip(title: "Maligne Lake", rating: 4.8, location: "Canada", price: 40, isFavorite: true, image: UIImage(named: "MaligneLake")),
+        Trip(title: "Kolsay Lake", rating: 4.8, location: "Kazakhstan", price: 40, isFavorite: true, image: UIImage(named: "kolsayLake"))
+    ]
 
-       func displayError(_ message: String) {
-           print("Error loading trips: \(message)")
-       }
+        
+    private var  groupTrips = [
+        GroupTrip(image: UIImage(named: "mountainTrip")!, title: "Mountain Trip", secondTitle: "Seelisburg", location: "Norway")
+        ]
+    
+    func displayTrips(_ trips: [Trip]) {
+        self.displayedTrips = trips
+        self.tripsCollectionView.reloadData()
+    }
+
+    func displayGroupTrips(_ groupTrips: [GroupTrip]) {
+        self.groupTrips = groupTrips
+        self.groupTripsCollectionView.reloadData()
+    }
+
     
     private func setupUI() {
         view.backgroundColor = Colors.lightGray
@@ -248,24 +260,21 @@ final class HomeView: UIViewController, HomeViewProtocol {
 }
 
 extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case categoriesCollectionView:
             return categories.count
         case tripsCollectionView:
-            if let selectedCategory = selectedCategory {
-                return displayedTrips.filter { $0.location == selectedCategory }.count
-            } else {
-                return displayedTrips.count
-            }
-        case groupTripsCollectionView:
             return displayedTrips.count
+        case groupTripsCollectionView:
+            return groupTrips.count
         default:
             return 0
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch collectionView {
         case categoriesCollectionView:
@@ -279,22 +288,23 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
             return cell
         case groupTripsCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GroupTripCell", for: indexPath) as! GroupTripCell
-            let trip = groupTrips[indexPath.item]
-            cell.configure(with: trip)
+            let groupTrip = groupTrips[indexPath.item]
+            cell.configure(with: groupTrip)
             return cell
         default:
             return UICollectionViewCell()
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-           if collectionView == tripsCollectionView {
-               let trip = displayedTrips[indexPath.item]
-               let selectedTripDetailCategories = tripDetailCategories.filter { $0.location == trip.location }
-               router?.navigateToTripDetail(with: trip, tripDetailCategories: selectedTripDetailCategories)
-           }
-       }
-
+        if collectionView == tripsCollectionView {
+            let trip = displayedTrips[indexPath.item]
+            let selectedTripDetailCategories = tripDetailCategories.filter { $0.location == trip.location }
+            router?.navigateToTripDetail(with: trip, tripDetailCategories: selectedTripDetailCategories)
+        } else if collectionView == groupTripsCollectionView {
+            let groupTrip = groupTrips[indexPath.item]
+        }
+    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView {
         case categoriesCollectionView:
@@ -308,6 +318,4 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
         }
     }
 }
-
-
 

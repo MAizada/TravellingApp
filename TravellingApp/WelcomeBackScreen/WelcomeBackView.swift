@@ -3,10 +3,17 @@
 //  TravellingApp
 //
 //  Created by Aizada on 02.04.2024.
-//
+
 import UIKit
 
-final class WelcomeBackView: UIViewController {
+protocol WelcomeBackViewProtocol: AnyObject {
+    var presenter: WelcomeBackPresenterProtocol? { get set }
+    func showLoginError(_ error: Error)
+}
+
+final class WelcomeBackView: UIViewController, WelcomeBackViewProtocol {
+    
+    var presenter: WelcomeBackPresenterProtocol?
     
     // MARK: - Properties
     
@@ -52,7 +59,7 @@ final class WelcomeBackView: UIViewController {
         textField.layer.borderColor = Colors.customBlue.cgColor
         textField.layer.borderWidth = 1.0
         textField.layer.cornerRadius = 20
-        textField.isSecureTextEntry = true 
+        textField.isSecureTextEntry = true
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -66,12 +73,12 @@ final class WelcomeBackView: UIViewController {
         button.addTarget(self, action: #selector(forgotPasswordButtonTapped), for: .touchUpInside)
         return button
     }()
-
+    
     @objc private func forgotPasswordButtonTapped(sender: UIButton) {
-        let forgotPasswordView = ForgotPasswordRouter.createModule()
-        navigationController?.pushViewController(forgotPasswordView, animated: true) 
+        print("Forgot Password button tapped/ViewWB")
+        presenter?.forgotPassword()
     }
-
+    
     private let rememberMeButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -100,7 +107,7 @@ final class WelcomeBackView: UIViewController {
         button.addTarget(self, action: #selector(didTapRememberMeButton), for: .touchUpInside)
         return button
     }()
-
+    
     private var isRemembered: Bool = false {
         didSet {
             if let checkboxImageView = rememberMeButton.subviews.first(where: { $0 is UIImageView }) as? UIImageView {
@@ -108,8 +115,9 @@ final class WelcomeBackView: UIViewController {
             }
         }
     }
-
+    
     @objc private func didTapRememberMeButton(sender: UIButton) {
+        print("Remember me button tapped/ViewWB")
         isRemembered.toggle()
     }
     
@@ -125,6 +133,7 @@ final class WelcomeBackView: UIViewController {
     }()
     
     @objc private func didTaploginButton() {
+        print("Login button tapped/ViewWB")
         let tabBarController = TabBarController()
         navigationController?.pushViewController(tabBarController, animated: true)
     }
@@ -194,8 +203,8 @@ final class WelcomeBackView: UIViewController {
     
     
     @objc private func didTapSignUpHereButton() {
-        let registrationV = RegistrationView()
-        navigationController?.pushViewController(registrationV, animated: true)
+        print("Sign Up Here button tapped/ViewWB")
+        presenter?.navigateToRegistration()
     }
     
     private lazy var signUpStackView: UIStackView = {
@@ -215,6 +224,12 @@ final class WelcomeBackView: UIViewController {
         setupConstraints()
     }
     
+    func showLoginError(_ error: Error) {
+        let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
     // MARK: - UI Setup
     
     private func setupUI() {

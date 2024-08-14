@@ -39,6 +39,10 @@
 		2EC8A2892BE9335F00364104 /* ForgotPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC8A2882BE9335F00364104 /* ForgotPasswordPresenter.swift */; };
 		2EC8A28B2BE9336C00364104 /* ForgotPasswordEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC8A28A2BE9336C00364104 /* ForgotPasswordEntity.swift */; };
 		2EC8A28D2BE9337F00364104 /* ForgotPasswordRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC8A28C2BE9337F00364104 /* ForgotPasswordRouter.swift */; };
+		2EC8A28F2BE9378700364104 /* WelcomeBackInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC8A28E2BE9378700364104 /* WelcomeBackInteractor.swift */; };
+		2EC8A2912BE9379B00364104 /* WelcomeBackPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC8A2902BE9379B00364104 /* WelcomeBackPresenter.swift */; };
+		2EC8A2932BE937A700364104 /* WelcomeBackEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC8A2922BE937A700364104 /* WelcomeBackEntity.swift */; };
+		2EC8A2952BE937B300364104 /* WelcomeBackRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC8A2942BE937B300364104 /* WelcomeBackRouter.swift */; };
 		2ED4948D2BBF285F00E8BB78 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED4948C2BBF285F00E8BB78 /* CategoryCell.swift */; };
 		2ED4948F2BBF287300E8BB78 /* TopTripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED4948E2BBF287300E8BB78 /* TopTripCell.swift */; };
 		2ED494912BBF288400E8BB78 /* GroupTripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED494902BBF288400E8BB78 /* GroupTripCell.swift */; };
@@ -92,6 +96,10 @@
 		2EC8A2882BE9335F00364104 /* ForgotPasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPresenter.swift; sourceTree = "<group>"; };
 		2EC8A28A2BE9336C00364104 /* ForgotPasswordEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordEntity.swift; sourceTree = "<group>"; };
 		2EC8A28C2BE9337F00364104 /* ForgotPasswordRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordRouter.swift; sourceTree = "<group>"; };
+		2EC8A28E2BE9378700364104 /* WelcomeBackInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackInteractor.swift; sourceTree = "<group>"; };
+		2EC8A2902BE9379B00364104 /* WelcomeBackPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackPresenter.swift; sourceTree = "<group>"; };
+		2EC8A2922BE937A700364104 /* WelcomeBackEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackEntity.swift; sourceTree = "<group>"; };
+		2EC8A2942BE937B300364104 /* WelcomeBackRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackRouter.swift; sourceTree = "<group>"; };
 		2ED4948C2BBF285F00E8BB78 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		2ED4948E2BBF287300E8BB78 /* TopTripCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTripCell.swift; sourceTree = "<group>"; };
 		2ED494902BBF288400E8BB78 /* GroupTripCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTripCell.swift; sourceTree = "<group>"; };
@@ -148,8 +156,8 @@
 				2E7848612BBDDD5E00498179 /* TabBar */,
 				2EE084912BD93C39006B7005 /* AuthenticationModule */,
 				2E2DA2D72BB6D9CD00EBDD9F /* Registration */,
-				2EC8A2832BE9331900364104 /* ForgotPasswordScreen */,
 				2E805D772BBC7E9B00D66081 /* WelcomeBackScreen */,
+				2EC8A2832BE9331900364104 /* ForgotPasswordScreen */,
 				2ED4948B2BBF282300E8BB78 /* HomeScreen */,
 				2E9DB6492BD59ECC0044DA91 /* NotificationScreen */,
 				2E3562CF2BC540E00072FDD5 /* ExploreScreen */,
@@ -226,6 +234,10 @@
 			isa = PBXGroup;
 			children = (
 				2E805D782BBC7EC600D66081 /* WelcomeBackView.swift */,
+				2EC8A28E2BE9378700364104 /* WelcomeBackInteractor.swift */,
+				2EC8A2902BE9379B00364104 /* WelcomeBackPresenter.swift */,
+				2EC8A2922BE937A700364104 /* WelcomeBackEntity.swift */,
+				2EC8A2942BE937B300364104 /* WelcomeBackRouter.swift */,
 			);
 			path = WelcomeBackScreen;
 			sourceTree = "<group>";
@@ -394,6 +406,8 @@
 				2EC8A2852BE9333800364104 /* ForgotPasswordView.swift in Sources */,
 				2E3562D42BC553CC0072FDD5 /* ChatTableViewCell.swift in Sources */,
 				2E78486D2BBDDF0F00498179 /* ProfileView.swift in Sources */,
+				2EC8A2952BE937B300364104 /* WelcomeBackRouter.swift in Sources */,
+				2EC8A2912BE9379B00364104 /* WelcomeBackPresenter.swift in Sources */,
 				2E804C742BCD8F570028026D /* DirectionTableViewCell.swift in Sources */,
 				2E7848652BBDDEA000498179 /* HomeView.swift in Sources */,
 				2EF571332BE00A1D005C1AB0 /* HomeEntity.swift in Sources */,
@@ -418,7 +432,9 @@
 				2EC8A2872BE9334B00364104 /* ForgotPasswordInteractor.swift in Sources */,
 				2EE0848E2BD93AEF006B7005 /* AuthenticationManager.swift in Sources */,
 				2EC8A2892BE9335F00364104 /* ForgotPasswordPresenter.swift in Sources */,
+				2EC8A28F2BE9378700364104 /* WelcomeBackInteractor.swift in Sources */,
 				2EC8A28D2BE9337F00364104 /* ForgotPasswordRouter.swift in Sources */,
+				2EC8A2932BE937A700364104 /* WelcomeBackEntity.swift in Sources */,
 				2E804C722BCD8C690028026D /* DirectionsAndTransport.swift in Sources */,
 				2E9DB64B2BD59EE10044DA91 /* NotificationView.swift in Sources */,
 				2EF5712D2BE009F0005C1AB0 /* HomeInteractor.swift in Sources */,

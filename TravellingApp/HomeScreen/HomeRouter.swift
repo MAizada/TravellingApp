@@ -16,6 +16,17 @@ protocol HomeRouterProtocol: AnyObject {
 final class HomeRouter: HomeRouterProtocol {
     weak var viewController: UIViewController?
 
+    static func createModule() -> UIViewController {
+            let view = HomeView() 
+            let router = HomeRouter(viewController: view)
+            
+            view.router = router
+            router.viewController = view
+            
+            let navigationController = UINavigationController(rootViewController: view)
+            return navigationController
+        }
+        
     init(viewController: UIViewController) {
         self.viewController = viewController
     }

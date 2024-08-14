@@ -199,16 +199,7 @@ final class TripDetailView: UIViewController {
         if let tripDetail = tripDetailCategories.first(where: { $0.secondTitle == trip.title }) {
             locationLabel.text = tripDetail.location
             informationTextView.text = tripDetail.information
-            
-            if let imageURL = trip.imageURL {
-                DispatchQueue.global().async {
-                    if let data = try? Data(contentsOf: imageURL) {
-                        DispatchQueue.main.async {
-                            self.tripImageView.image = UIImage(data: data)
-                        }
-                    }
-                }
-            }
+   
         }
     }
 }

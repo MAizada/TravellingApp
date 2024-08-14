@@ -135,14 +135,5 @@ final class TopTripCell: UICollectionViewCell {
         priceLabel.text = "$\(trip.price) /visit"
         favoriteButton.setImage(trip.isFavorite ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
         
-        if let imageURL = trip.imageURL {
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: imageURL) {
-                    DispatchQueue.main.async {
-                        self.imageView.image = UIImage(data: data)
-                    }
-                }
-            }
-        }
     }
 }

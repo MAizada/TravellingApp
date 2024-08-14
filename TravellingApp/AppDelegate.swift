@@ -6,38 +6,40 @@
 //
 import UIKit
 import Firebase
-import FirebaseStorage
-import FirebaseDatabase
-import FirebaseFirestore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
+
     var window: UIWindow?
-   
-    
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
-        var firebaseManager = FirebaseDatabaseManager.shared
+        let firebaseManager = FirebaseDatabaseManager.shared
         print("Firebase configured successfully")
-        
-        let homeView = HomeView()
-        let router = HomeRouter(viewController: homeView)
-        let presenter = HomePresenter(view: homeView, interactor: HomeInteractor(firebaseManager: firebaseManager), router: router)
-        homeView.presenter = presenter
-        
-        firebaseManager.getAllTripsFromFirebase { trips, error in
-            if let error = error {
-                print("Error loading trips from Firebase: \(error.localizedDescription)")
-            } else if let trips = trips {
-                homeView.displayedTrips = trips
-                homeView.tripsCollectionView.reloadData()
+
+        let rememberMeEnabled = UserDefaults.standard.bool(forKey: "RememberMe")
+        if rememberMeEnabled {
+            let userEmail = UserDefaults.standard.string(forKey: "UserEmail")
+            let userPassword = UserDefaults.standard.string(forKey: "UserPassword")
+            if let email = userEmail, let password = userPassword {
+                let interactor = WelcomeBackInteractor()
+                interactor.login(email: email, password: password) { result in
+                    switch result {
+                    case .success:
+                        print("User logged in successfully")
+                    case .failure(let error):
+                        print("Error logging in: \(error.localizedDescription)")
+                    }
+                }
             }
         }
-        
-        let navController = UINavigationController(rootViewController: homeView)
+
+        // Create an instance of your TabBarController
+        let tabBarController = TabBarController()
+
+        // Set up the root view controller of the window
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = navController
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
         
         return true
@@ -47,25 +49,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 
-
-
-
-
-
-
-// Список поездок
-//let trips: [Trip] = [
-//    Trip(title: "RedFish Lake", rating: 4.5, location: "Idaho", price: 40, isFavorite: true, imageURL: URL(string: "RedFishLake.jpg")),
-//    Trip(title: "Maligne Lake", rating: 4.8, location: "Canada", price: 40, isFavorite: true, imageURL: URL(string: "MaligneLake.jpg")),
-//    Trip(title: "Kolsay Lake", rating: 4.8, location: "Kazakhstan", price: 40, isFavorite: true, imageURL: URL(string: "kolsayLake.jpg")),
-//]
-
-
-//
-//let groupTrips: [GroupTrip] = [
-//    GroupTrip(title: "Mountain Trip", secondTitle: "Seelisburg", location: "Norway", image: UIImage(named: "mountainTrip")!)
-//]
-//
 //var tripDetailCategories: [TripDetailCatrgories] = [
 //    TripDetailCatrgories(title: "Lake View", secondTitle: "RedFish Lake", image: UIImage(named: "RedFish")!, rating: 4.5, location: "Idaho", information: """
 //    What is Redfish Lake known for?

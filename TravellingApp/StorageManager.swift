@@ -9,7 +9,7 @@ struct Trip {
     let location: String
     let price: Double
     let isFavorite: Bool
-    var imageURL: URL?
+    let image: UIImage?
 }
 
 final class FirebaseDatabaseManager {
@@ -29,7 +29,7 @@ final class FirebaseDatabaseManager {
                 "location": trip.location,
                 "price": trip.price,
                 "isFavorite": trip.isFavorite,
-                "imageURL": trip.imageURL?.absoluteString ?? ""
+                "imageURL": trip.image
             ]
             
             tripRef.setValue(tripData) { error, _ in
@@ -48,31 +48,4 @@ final class FirebaseDatabaseManager {
         }
     }
     
-    func getAllTripsFromFirebase(completion: @escaping ([Trip]?, Error?) -> Void) {
-        databaseRef.child("trips").observeSingleEvent(of: .value, with: { snapshot in
-            guard let tripDicts = snapshot.value as? [String: Any] else {
-                completion(nil, nil)
-                return
-            }
-            
-            let trips = tripDicts.compactMap { (key, value) -> Trip? in
-                guard let tripData = value as? [String: Any],
-                      let title = tripData["title"] as? String,
-                      let rating = tripData["rating"] as? Double,
-                      let location = tripData["location"] as? String,
-                      let price = tripData["price"] as? Double,
-                      let isFavorite = tripData["isFavorite"] as? Bool,
-                      let imageURLString = tripData["imageURL"] as? String,
-                      let imageURL = URL(string: imageURLString) else {
-                    return nil
-                }
-                
-                return Trip(title: title, rating: rating, location: location, price: price, isFavorite: isFavorite, imageURL: imageURL)
-            }
-            
-            completion(trips, nil)
-        }) { error in
-            completion(nil, error)
-        }
-    }
 }
