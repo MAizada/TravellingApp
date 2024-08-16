@@ -134,6 +134,6 @@ final class TopTripCell: UICollectionViewCell {
         locationLabel.text = trip.location
         priceLabel.text = "$\(trip.price) /visit"
         favoriteButton.setImage(trip.isFavorite ? UIImage(named: "heart_filled") : UIImage(named: "heart"), for: .normal)
-        
+        imageView.image = trip.image 
     }
 }

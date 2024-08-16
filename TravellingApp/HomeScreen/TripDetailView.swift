@@ -193,7 +193,7 @@ final class TripDetailView: UIViewController {
         
         titleLabel.text = trip.title
         secondTitleLabel.text = trip.location
-        tripImageView.image = UIImage(named: "placeholder_image") // Placeholder image while loading
+        tripImageView.image = UIImage(named: "placeholder_image") 
         ratingLabel.text = String(trip.rating)
         
         if let tripDetail = tripDetailCategories.first(where: { $0.secondTitle == trip.title }) {

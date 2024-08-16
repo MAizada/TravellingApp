@@ -111,7 +111,6 @@ final class HomeView: UIViewController, HomeViewProtocol {
         Trip(title: "Maligne Lake", rating: 4.8, location: "Canada", price: 40, isFavorite: true, image: UIImage(named: "MaligneLake")),
         Trip(title: "Kolsay Lake", rating: 4.8, location: "Kazakhstan", price: 40, isFavorite: true, image: UIImage(named: "kolsayLake"))
     ]
-
         
     private var  groupTrips = [
         GroupTrip(image: UIImage(named: "mountainTrip")!, title: "Mountain Trip", secondTitle: "Seelisburg", location: "Norway")
